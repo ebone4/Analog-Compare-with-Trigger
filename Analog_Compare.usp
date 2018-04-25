@@ -1,0 +1,45 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:
+System Name:
+System Number:
+Programmer:
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+#SYMBOL_NAME "Analog Compare"
+#HINT "Analog Compare with trigger"
+#CATEGORY "1" // Analog Operations
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+        
+DIGITAL_INPUT trigger;
+ANALOG_INPUT in1, in2;
+ANALOG_INPUT length;
+
+DIGITAL_OUTPUT	Equal,
+				NotEqual,
+				LessThan,
+				LessThan_Equal,
+				GreaterThan,
+				GreaterThan_Equal;
+				
+PUSH trigger
+{
+	if(in1 = in2 && IsSignalDefined(Equal)) pulse(length, Equal);
+	if(in1 != in2 && IsSignalDefined(NotEqual)) pulse(length, NotEqual);
+	if(in1 < in2 && IsSignalDefined(LessThan)) pulse(length, LessThan);
+	if(in1 <= in2&& IsSignalDefined(LessThan_Equal)) pulse(length, LessThan_Equal);
+	if(in1 > in2 && IsSignalDefined(GreaterThan)) pulse(length, GreaterThan);
+	if(in1 >= in2 && IsSignalDefined(GreaterThan_Equal)) pulse(length, GreaterThan_Equal);
+}
+	
